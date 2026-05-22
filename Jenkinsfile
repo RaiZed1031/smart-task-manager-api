@@ -31,6 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application using Docker Compose'
+                bat 'docker rm -f smart-task-manager-api || exit 0'
                 bat 'docker compose down || exit 0'
                 bat 'docker compose up -d --build'
             }
