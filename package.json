@@ -4,7 +4,7 @@
   "description": "Smart Task Manager REST API for Jenkins DevOps Pipeline",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node -r newrelic server.js",
     "test": "jest",
     "build": "echo Build completed successfully",
     "lint": "eslint ."
@@ -13,7 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "newrelic": "^14.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

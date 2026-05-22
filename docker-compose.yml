@@ -1,0 +1,8 @@
+services:
+  smart-task-manager-api:
+    build: .
+    image: smart-task-manager-api
+    container_name: smart-task-manager-api
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
