@@ -30,20 +30,31 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat 'docker rm -f smart-task-manager-api || exit 0'
-                bat 'docker run -d -p 3000:3000 --name smart-task-manager-api smart-task-manager-api'
+                echo 'Deploying application using Docker Compose'
+                bat 'docker compose down || exit 0'
+                bat 'docker compose up -d --build'
             }
         }
 
         stage('Release') {
             steps {
+                echo 'Creating production release image'
                 bat 'docker tag smart-task-manager-api smart-task-manager-api:v1.0'
+                bat 'docker tag smart-task-manager-api railey1031/smart-task-manager-api:v1.0'
+                bat 'docker push railey1031/smart-task-manager-api:v1.0'
+                bat 'docker images smart-task-manager-api'
             }
         }
 
         stage('Monitoring') {
             steps {
+                echo 'Checking deployed application health endpoint'
                 bat 'curl http://localhost:3000/health'
+
+                echo 'Checking Docker container status'
+                bat 'docker ps'
+
+                echo 'New Relic APM monitoring enabled for Smart Task Manager API'
             }
         }
     }
