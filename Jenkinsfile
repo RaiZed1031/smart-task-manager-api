@@ -60,7 +60,7 @@ pipeline {
                     passwordVariable: 'DOCKERHUB_PASS'
                 )]) {
 
-                    bat 'echo %DOCKERHUB_PASS% | docker login -u %DOCKERHUB_USER% --password-stdin'
+                    bat 'docker login -u %DOCKERHUB_USER% -p %DOCKERHUB_PASS%'
 
                     bat 'docker tag smart-task-manager-api %DOCKERHUB_USER%/smart-task-manager-api:v1.0'
 
